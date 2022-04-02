@@ -8,6 +8,7 @@ page = requests.get(URL)
 soup = BeautifulSoup(page.text, 'html.parser')
 content = soup.find("div", {"class": "entry-content herald-entry-content"})
 
+# Hello class
 class Album:
     def __init__(self, name, release_date, type):
         self.name = name
@@ -15,6 +16,10 @@ class Album:
         self.type = type
     songs = []
 
+    def __repr__(self):
+        return "Name: %s, %s, Type: %s \n Songs: %s \n" % (self.name, self.release_date, self.type, self.songs)
+
+# List to insert albums in
 albums = []
 # cant use find_all since i have to loop through the section of the site
 # and stop at the NOTE
@@ -34,21 +39,22 @@ for element in content:
             if len(albuminfo) < 4:
                 continue
             else:
-                """
                 album = Album(albuminfo[0],albuminfo[1],albuminfo[3])
                 albums.append(album)
-                """
                 # test
+                """"
                 print("album info: ")
                 print(f"name: {albuminfo[0]}")
                 print(f"date: {albuminfo[1]}")
                 print(f"type: {albuminfo[3]}")
-
+                """
         # get song list of album
         elif(element.name == 'ol'):
             songs = []
             print("SONGS:")
             for song in element:
                 songs.append(song.get_text())
-            print(songs)
+            #print(songs)
+            albums[-1].songs = songs
             print('\n')
+print(albums)
