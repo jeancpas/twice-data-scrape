@@ -48,16 +48,9 @@ for element in content:
                 date_string = albuminfo[1].split("date: ")[1]
                 date_object = datetime.strptime(date_string, "%B %d, %Y")
                 json_date = date_object.isoformat()
-                # TODO DateTime in json
                 album = Album(albuminfo[0], json_date ,albuminfo[3])
                 albums.append(album)
-                # test
-                """"
-                print("album info: ")
-                print(f"name: {albuminfo[0]}")
-                print(f"date: {albuminfo[1]}")
-                print(f"type: {albuminfo[3]}")
-                """
+
         # get song list of album
         elif(element.name == 'ol'):
             songs = []
@@ -65,6 +58,7 @@ for element in content:
             for song in element:
                 songs.append(song.get_text())
             #print(songs)
+            #add songs to last album
             albums[-1].songs = songs
 
 def write_json():
