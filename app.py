@@ -47,8 +47,9 @@ for element in content:
                 # convert date string to datetime object
                 date_string = albuminfo[1].split("date: ")[1]
                 date_object = datetime.strptime(date_string, "%B %d, %Y")
+                json_date = date_object.isoformat()
                 # TODO DateTime in json
-                album = Album(albuminfo[0], date_string ,albuminfo[3])
+                album = Album(albuminfo[0], json_date ,albuminfo[3])
                 albums.append(album)
                 # test
                 """"
@@ -67,4 +68,4 @@ for element in content:
             albums[-1].songs = songs
             print('\n')
 print(albums)
-print(albums[0].toJSON())
+print(albums[4].toJSON())
