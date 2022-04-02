@@ -70,3 +70,5 @@ for element in content:
 def write_json():
     with open('data.json', 'w') as file:
         json.dump([album.__dict__ for album in albums], file)
+
+write_json()
