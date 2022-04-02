@@ -61,11 +61,12 @@ for element in content:
         # get song list of album
         elif(element.name == 'ol'):
             songs = []
-            print("SONGS:")
+            #print("SONGS:")
             for song in element:
                 songs.append(song.get_text())
             #print(songs)
             albums[-1].songs = songs
-            print('\n')
-print(albums)
-print(albums[4].toJSON())
+
+def write_json():
+    with open('data.json', 'w') as file:
+        json.dump([album.__dict__ for album in albums], file)
