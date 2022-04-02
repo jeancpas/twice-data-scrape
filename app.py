@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+from datetime import datetime
 
 URL = "https://kprofiles.com/twice-discography/"
 page = requests.get(URL)
@@ -15,6 +16,10 @@ class Album:
         self.release_date = release_date
         self.type = type
     songs = []
+    #thank you https://stackoverflow.com/questions/3768895/how-to-make-a-class-json-serializable
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+            sort_keys=True, indent=4)
 
     def __repr__(self):
         return "Name: %s, %s, Type: %s \n Songs: %s \n" % (self.name, self.release_date, self.type, self.songs)
@@ -39,7 +44,10 @@ for element in content:
             if len(albuminfo) < 4:
                 continue
             else:
-                album = Album(albuminfo[0],albuminfo[1],albuminfo[3])
+                # convert date string to datetime object
+                date_string = albuminfo[1].split("date: ")[1]
+                date_object = datetime.strptime(date_string, "%B %d, %Y")
+                album = Album(albuminfo[0], date_object,albuminfo[3])
                 albums.append(album)
                 # test
                 """"
@@ -58,3 +66,4 @@ for element in content:
             albums[-1].songs = songs
             print('\n')
 print(albums)
+print(albums[0].toJSON())
