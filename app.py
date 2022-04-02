@@ -47,7 +47,8 @@ for element in content:
                 # convert date string to datetime object
                 date_string = albuminfo[1].split("date: ")[1]
                 date_object = datetime.strptime(date_string, "%B %d, %Y")
-                album = Album(albuminfo[0], date_object,albuminfo[3])
+                # TODO DateTime in json
+                album = Album(albuminfo[0], date_string ,albuminfo[3])
                 albums.append(album)
                 # test
                 """"
